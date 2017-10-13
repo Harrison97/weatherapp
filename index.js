@@ -1,3 +1,4 @@
+import apikey from 'config.js'
 $(document).ready({
 
 });
@@ -18,6 +19,13 @@ if (navigator.geolocation) {
     			}
     		}
     		console.log(city)
+    		
+    		$.getJSON("https://api.darksky.net/forecast/" + config.apikey + "/" + latitude + "," + latitude, function(weather){
+    			console.log(weather)
+    		})
+    		
+    		
+
     	})
 	   	
     });

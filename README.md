@@ -1,9 +1,9 @@
-"# weatherapp
+"# weatherapp"
 
-There is a .config that has the api key for openweathermap.org.
+There is a .config that has the api key for darksky.net.
 
 config.json : 
 {
-	"APPID" : "Your APPID"
+	"apikey" : "Your key
 } 
 "
