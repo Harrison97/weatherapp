@@ -1,6 +1,8 @@
 var date = new Date();
 var hour = date.getHours();
 var opacity = 0;
+var temp = null;
+var toggle = false;
 switch(hour) {
     case 0:
     case 1:
@@ -47,6 +49,19 @@ switch(hour) {
 
 $(document).ready(function(){
     $("#bg-img").animate({opacity: opacity}, 2*1000);
+
+    $(document).on("click", function(){
+        if(temp != null) {
+            if(toggle){
+                toggle=false;
+                $("#city-temp").html(temp + "°C")
+            } else {
+                toggle=true;
+                $("#city-temp").html(temp*9/5 + 32 + "°F")
+            }
+        }
+    })
+
 });
 
 if (navigator.geolocation) {
@@ -59,8 +74,9 @@ if (navigator.geolocation) {
         var url = "https://fcc-weather-api.glitch.me/api/current?lat="+latitude+"&lon="+longitude
         $.getJSON(url, function(city){
             console.log(city);
+            temp = Math.round(city.main.temp)
             $("#city-name").html(city.name)
-            $("#city-temp").html(city.main.temp + "°C")
+            $("#city-temp").html(temp + "°C")
             $("#city-humidity").html(city.main.humidity + "% Humidity")
             $("#city-weather").html(city.weather[0].main)
             var icon=""
@@ -76,6 +92,9 @@ if (navigator.geolocation) {
                     break;
                 case "Snow":
                     icon = "snow"
+                    break;
+                case "Haze":
+                    icon = "dust"
                     break;
                 default:
                     icon = "cloud"
